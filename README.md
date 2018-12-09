@@ -1,17 +1,14 @@
-## Todo API
+# Test service for Automated QA
 
-_A simple Todo API to demonstrate hosted end-to-end testing._
+A small, simple API service for a todo list. This service has two purposes for the QA assistant, [Automated QA](https://github.com/lambdagrid/automated-qa). The first is to test it end-to-end, in a blackbox fashion, from the end user's perspective. The second is to be the primary example and tutorial on how to use Automated QA.
 
-### Description
+# How this service works
 
-This API server exposes a service that allows any client create an API key and
-start managing a list of todo items.
+This API server exposes a service that allows any client create an API key and start managing a list of todo items.
 
-And API key can be created using the `/api-keys` endpoint and all subsequent
-requests will require it to perform any operation on your list of todos.
+And API key can be created using the `/api-keys` endpoint and all subsequent requests will require it to perform any operation on your list of todos.
 
-The todos are persisted in a database for retrieval at a later point, but,
-will all be erased when the API key associated with them is deleted.
+The todos are persisted in a database for retrieval at a later point, but, will all be erased when the API key associated with them is deleted.
 
 **Endpoints**
 
@@ -24,104 +21,74 @@ method|path
 `PUT`|`/todos/<id>`
 `DELETE`|`/todos/<id>`
 
-### Design decisions
+# Components
 
-This application is made of 4 types of components if we can call them that:
+This application is the composition of several components:
 
-1. **Application**: There is only one of these and it's job is to hold
-    references to all other componets. It'll contain things like configuration
-    routes, a database connection, service instances and the web server &
-    it's router.
-1. **Entities**: Entities are simple datatypes that represent database entities
-    but dont expect many methods to be attached to them other than presentational
-    ones dealing only with the fields available on itself.
-1. **Services**: Services, one per entity, expose all the necessary methods
-    to find and change entities stored in the database. This abstraction makes
-    it trivial to add more than one way to interact with the application's data
-    in the future. HTTP for now, but CLIs, background jobs and RPC messages at
-    some point.
-1. **Middlewares**: Middlewares take care of utility every or most http request
-    need. Stuff like logging, catching errors or authentication & authorization.
-1. **Handlers**: In this case HTTP handlers contain the logic to be executed for
-    a given endpoint, it'll make sure it received a valid payload and call
-    service methods to accomplish what it's meat to do.
+1. **Application**: There is only one of these and it's job is to hold references to all other components. It'll contain things like configuration routes, a database connection, service instances and the web server & it's router.
+1. **Entities**: Entities are simple datatypes that represent database entities but don't expect many methods to be attached to them other than presentational ones dealing only with the fields available on itself.
+1. **Services**: Services, one per entity, expose all the necessary methods to find and change entities stored in the database. This abstraction makes it trivial to add more than one way to interact with the application's data in the future. HTTP for now, but CLIs, background jobs and RPC messages at some point.
+1. **Middleware**: Middleware take care of utilities every or most http request need. Stuff like logging, catching errors or authentication & authorization.
+1. **Handlers**: In this case HTTP handlers contain the logic to be executed for a given endpoint, it'll make sure it received a valid payload and call service methods to accomplish what it's meat to do.
 
-### Developing
+# Development
 
-**Setup**
-
-First, make sure you have a recent version of `node` and `npm` installed
-then, install the required dependecies using:
+Installation:
 
 ```
-npm install
+$ cd repo/root/directory
+$ npm install
 ```
 
-If this is the first time you are running this application make sure that
-you have a local PostgreSQL server running and have access to the `psql`
-utility. Next, run the following:
+If this is the first time you are running this application make sure that you have a local PostgreSQL server running and have access to the `psql` utility. Next, run the following:
 
 ```
-npm run dbsetup
+$ npm run dbsetup
 ```
 
 If ever you want to clear your database and start with a blank slate, use:
 
 ```
-npm run dbreset
+$ npm run dbreset
 ```
-
-**Running**
 
 To run the application locally and try it out, make sure you've ran the
 "setup" steps then use:
 
 ```
-npm start
+$ npm start
 ```
-
-**Developing**
 
 If you want make some changes to the code, you can run the application in
 development mode so that the server is restarted when you make changes. Use:
 
 ```
-npm run dev
+$ npm run dev
 ```
 
-**Testing**
-
-Is simply:
+Testing:
 
 ```
-npm test
+$ npm test
 ```
 
-**Linting**
-
-Can be acomplished with:
+Linting:
 
 ```
-npm run lint
+$ npm run lint
 ```
 
-### Deploying
+# Deploying
 
 This application is made to be deployed using Heroku.
 
-**Deploying**
-
 Deploying a new version consists of:
 
-1. Make sure you commited all your changes in a git commit
+1. Make sure you committed all your changes in a git commit
 2. Run `git push heroku master`
 3. Done!
 
-**Setting up**
-
-If you are setting up Heroku to host this application, use
-the following commands (requires you to have the Heroku
-Toolbelt installed):
+If you are setting up Heroku to host this application, use the following commands (requires you to have the Heroku Toolbelt installed):
 
 ```
 $ heroku create
@@ -152,7 +119,3 @@ $ heroku run node scripts/setupDatabase.js
 Running node scripts/setupDatabase.js on ⬢ kiasaki-todos... up, run.4559 (Free)
 Database tables api_keys and todos created.
 ```
-
-### License
-
-GPL. See `LICENSE.txt` file.
