@@ -2,6 +2,10 @@
 
 A small, simple API service for a todo list. This service has two purposes for the QA assistant, [Automated QA](https://github.com/lambdagrid/automated-qa). The first is to test it end-to-end, in a blackbox fashion, from the end user's perspective. The second is to be the primary example and tutorial on how to use Automated QA.
 
+# Tutorial: How to use Automated QA
+
+Check out `qa-checklist/index.js` for annotated source code to learn to write your first QA checklist.
+
 # How this service works
 
 This API server exposes a service that allows any client create an API key and start managing a list of todo items.
